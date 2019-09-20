@@ -7,7 +7,7 @@ This module is originally from [Cloudposse's RDS module](https://github.com/clou
 ## MySQL Example:
  ```
 module "db" {
-  source                      = "github.com/mitlibraries/td-mod-rds?ref=0.11"
+  source                      = "github.com/mitlibraries/td-mod-rds?ref=0.12"
   engine                      = "mysql"
   engine_version              = "5.5.61"
   instance_class              = "db.t3.micro"
