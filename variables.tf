@@ -5,6 +5,7 @@ variable "name" {
 
 variable "enabled" {
   description = "Set to false to prevent the module from creating any resources"
+  type        = string
   default     = "true"
 }
 
@@ -45,6 +46,7 @@ variable "database_password" {
 
 variable "database_port" {
   description = "Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allow access to the DB instance from the provided `security_group_ids`"
+  type        = string
 }
 
 variable "multi_az" {
@@ -67,11 +69,13 @@ variable "storage_encrypted" {
 
 variable "iops" {
   description = "The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'. Default is 0 if rds storage type is not 'io1'"
+  type        = string
   default     = "0"
 }
 
 variable "allocated_storage" {
   description = "The allocated storage in GBs"
+  type        = string
   # Number, e.g. 10
 }
 
@@ -173,6 +177,7 @@ variable "copy_tags_to_snapshot" {
 
 variable "backup_retention_period" {
   description = "Backup retention period in days. Must be > 0 to enable backups"
+  type        = string
   default     = 0
 }
 
