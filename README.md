@@ -7,26 +7,26 @@ This module is originally from [Cloudposse's RDS module](https://github.com/clou
 ## MySQL Example:
  ```
 module "db" {
-  source                      = "github.com/mitlibraries/td-mod-rds?ref=0.13"
+  source                      = "github.com/mitlibraries/tf-mod-rds?ref=0.13"
   engine                      = "mysql"
-  engine_version              = "5.5.61"
+  engine_version              = "5.7.34"
   instance_class              = "db.t3.micro"
   allocated_storage           = 20
-  name                        = "appname-rds"
-  database_name               = "dbname"
-  database_user               = "${var.rds_username}"
-  database_password           = "${var.rds_password}"
+  name                        = "appname-rds" # ONLY alphanumeric characters and hypen!
+  database_name               = "dbname"      # ONLY alphnumeric characters!
+  database_user               = var.rds_username
+  database_password           = var.rds_password
   database_port               = "3306"
-  db_parameter_group          = "mysql5.5"
+  db_parameter_group          = "mysql5.7"
   maintenance_window          = "Sun:00:00-Sun:03:00"
   backup_window               = "03:00-06:00"
-  vpc_id                      = "${module.shared.vpc_id}"
-  subnet_ids                  = ["${module.shared.private_subnets}"]
-  security_group_ids          = ["${module.app.security_group_id}"]
-  major_engine_version        = "5.5"
+  vpc_id                      = module.shared.vpc_id
+  subnet_ids                  = module.shared.private_subnets
+  security_group_ids          = [aws_security_group.default.id]
+  major_engine_version        = "5.7"
   allow_major_version_upgrade = "false"
   apply_immediately           = "true"
-  dns_zone_id                 = "${module.shared.private_zoneid}"
+  dns_zone_id                 = module.shared.private_zoneid
 }
 ```
 
