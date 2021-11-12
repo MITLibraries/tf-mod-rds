@@ -16,37 +16,40 @@ module "final_snapshot_label" {
 }
 
 resource "aws_db_instance" "default" {
-  count                       = var.enabled == "true" ? 1 : 0
-  identifier                  = module.label.name
-  name                        = var.database_name
-  username                    = var.database_user
-  password                    = var.database_password
-  port                        = var.database_port
-  engine                      = var.engine
-  engine_version              = var.engine_version
-  instance_class              = var.instance_class
-  allocated_storage           = var.allocated_storage
-  storage_encrypted           = var.storage_encrypted
-  vpc_security_group_ids      = [join("", aws_security_group.default.*.id)]
-  db_subnet_group_name        = join("", aws_db_subnet_group.default.*.name)
-  parameter_group_name        = length(var.parameter_group_name) > 0 ? var.parameter_group_name : join("", aws_db_parameter_group.default.*.name)
-  option_group_name           = length(var.option_group_name) > 0 ? var.option_group_name : join("", aws_db_option_group.default.*.name)
-  license_model               = var.license_model
-  multi_az                    = var.multi_az
-  storage_type                = var.storage_type
-  iops                        = var.iops
-  publicly_accessible         = var.publicly_accessible
-  snapshot_identifier         = var.snapshot_identifier
-  allow_major_version_upgrade = var.allow_major_version_upgrade
-  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
-  apply_immediately           = var.apply_immediately
-  maintenance_window          = var.maintenance_window
-  skip_final_snapshot         = var.skip_final_snapshot
-  copy_tags_to_snapshot       = var.copy_tags_to_snapshot
-  backup_retention_period     = var.backup_retention_period
-  backup_window               = var.backup_window
-  tags                        = module.label.tags
-  final_snapshot_identifier   = length(var.final_snapshot_identifier) > 0 ? var.final_snapshot_identifier : module.final_snapshot_label.name
+  count                           = var.enabled == "true" ? 1 : 0
+  identifier                      = module.label.name
+  name                            = var.database_name
+  username                        = var.database_user
+  password                        = var.database_password
+  port                            = var.database_port
+  engine                          = var.engine
+  engine_version                  = var.engine_version
+  instance_class                  = var.instance_class
+  allocated_storage               = var.allocated_storage
+  storage_encrypted               = var.storage_encrypted
+  vpc_security_group_ids          = [join("", aws_security_group.default.*.id)]
+  db_subnet_group_name            = join("", aws_db_subnet_group.default.*.name)
+  parameter_group_name            = length(var.parameter_group_name) > 0 ? var.parameter_group_name : join("", aws_db_parameter_group.default.*.name)
+  option_group_name               = length(var.option_group_name) > 0 ? var.option_group_name : join("", aws_db_option_group.default.*.name)
+  license_model                   = var.license_model
+  multi_az                        = var.multi_az
+  storage_type                    = var.storage_type
+  iops                            = var.iops
+  publicly_accessible             = var.publicly_accessible
+  snapshot_identifier             = var.snapshot_identifier
+  allow_major_version_upgrade     = var.allow_major_version_upgrade
+  auto_minor_version_upgrade      = var.auto_minor_version_upgrade
+  apply_immediately               = var.apply_immediately
+  maintenance_window              = var.maintenance_window
+  skip_final_snapshot             = var.skip_final_snapshot
+  copy_tags_to_snapshot           = var.copy_tags_to_snapshot
+  backup_retention_period         = var.backup_retention_period
+  backup_window                   = var.backup_window
+  deletion_protection             = var.deletion_protection
+  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
+  monitoring_interval             = var.monitoring_interval
+  tags                            = module.label.tags
+  final_snapshot_identifier       = length(var.final_snapshot_identifier) > 0 ? var.final_snapshot_identifier : module.final_snapshot_label.name
 }
 
 resource "aws_db_parameter_group" "default" {
@@ -132,4 +135,3 @@ resource "aws_route53_record" "default" {
   records = aws_db_instance.default.*.address
   count   = var.enabled == "true" ? 1 : 0
 }
-
