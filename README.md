@@ -85,6 +85,10 @@ module "db" {
 | subnet\_ids | List of subnets for the DB | `list(string)` | n/a | yes |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | `map(string)` | `{}` | no |
 | vpc\_id | VPC ID the DB instance will be created in | `string` | n/a | yes |
+| deletion\_protection | Protect this database instance from deletion | `string` | false | no |
+| enabled\_cloudwatch\_logs\_exports | List of logs to export to AWS CloudWatch | `list` | n/a | no |
+| monitoring\_interval | Interval to monitor the RDS instance | `string` | 0 | no |
+
 ## Outputs
 
 | Name | Description |

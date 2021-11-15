@@ -244,3 +244,20 @@ variable "option_group_name" {
   default     = ""
 }
 
+variable "deletion_protection" {
+  type        = string
+  description = "Protect this database instance from deletion"
+  default     = "false"
+}
+
+variable "enabled_cloudwatch_logs_exports" {
+  type        = list(string)
+  description = "List of logs to export to AWS CloudWatch"
+  default     = []
+}
+
+variable "monitoring_interval" {
+  type        = string
+  description = "Interval to monitor the RDS instance"
+  default     = "0"
+}
